@@ -1,0 +1,12 @@
+name: Issue
+
+on:
+  issues:
+    types: [opened] 
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add comment to new issue
+        run: echo "New issue added"
