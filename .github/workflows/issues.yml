@@ -8,5 +8,5 @@ jobs:
   comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Add comment to new issue
+      - name: new issue
         run: echo "New issue added"
