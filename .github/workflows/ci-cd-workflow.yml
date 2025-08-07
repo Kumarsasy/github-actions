@@ -1,0 +1,31 @@
+name: Ci Cd Workflow
+
+on:
+  push:
+    branches: [main, developer]
+  issues:
+    types: [opened, edited, closed]
+  pull_request:
+    types: [opened, synchronize, closed]
+  pull_request_review:
+    types: [submitted, edited, dismissed]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Job
+        run: echo "Build Completed"
+        
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Job
+        run: echo 'Testing Completed'
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Job
+        run: echo 'Deployment Completed'
+        
