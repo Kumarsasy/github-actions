@@ -7,8 +7,17 @@ jobs:
   java-setup:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: jdk setup
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
+          
+      - name: Compile Java file
+        run: javac JavaCode.java
+
+      - name: Run Java program
+        run: java JavaCode
