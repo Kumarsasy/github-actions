@@ -15,17 +15,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build Job
-        run: echo "Build Completed"
+        run: |
+          echo "Triggered by ${{ github.event_name }} for branch ${{ github.ref_name }}"
+
+          if [ "${{github.event_name}}" == "push" ]; then
+            echo "This is push event - building ${{ github.ref_name }} branch"
+          elif [ "${{github.event_name}}" == "pull_request" ]; then
+             echo "This is a pull request – running PR build pipeline..."
+          elif [ "${{ github.event_name }}" == "issues" ]; then
+            echo "An issue event - ${{ github.event.issue.title }} triggered the workflow..."
+          elif [ "${{ github.event_name }}" == "pull_request_review" ]; then
+            echo "Triggered by a pull request review submission..."
+          else
+            echo "Unknown event type – default build behavior."
+          fi
+          
+          echo "Build Completed"
         
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Test Job
-        run: echo 'Testing Completed'
+        run: |
+          echo "Triggered by ${{ github.event_name }} for branch ${{ github.ref_name }}"
+          echo 'Testing Completed'
 
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Job
-        run: echo 'Deployment Completed'
+        run: |
+          echo "Triggered by ${{ github.event_name }} for branch ${{ github.ref_name }}"
+          echo 'Deployment Completed'
         
