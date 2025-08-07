@@ -1,0 +1,16 @@
+name: greeting function
+
+on:
+  workflow_dispatch:  
+
+jobs:
+  functioncall:
+    runs-on: ubuntu-latest
+    steps:
+      - name: function call 
+        run: |
+          greet_user() {
+            echo "Hello, $1!"
+          }
+
+          greet_user "Sasi"
