@@ -3,8 +3,8 @@ name: Ci Cd Workflow
 on:
   push:
     branches: [main, developer]
-    branches-ignore: tester
-    tags: "v1*"
+    tags: 
+      - v1*
   issues:
     types: [opened, edited, closed]
   pull_request:
