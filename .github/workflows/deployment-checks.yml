@@ -1,0 +1,49 @@
+name: Deployment Checks
+
+on:
+  workflow_dispatch:
+    inputs:
+      username:
+        description: 'Enter your GitHub username'
+        required: true
+      environment:
+        description: 'Target environment (dev, staging, prod)'
+        required: true
+        default: 'dev'
+      should_deploy:
+        description: 'Do you want to proceed with deployment? (yes/no)'
+        required: true
+        default: 'no'
+
+jobs:
+  input-checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Show Input Values
+        run: |
+          echo "Username: ${{ github.event.inputs.username }}"
+          echo "Environment: ${{ github.event.inputs.environment }}"
+          echo "Should Deploy: ${{ github.event.inputs.should_deploy }}"
+
+      - name: Check Environment
+        run: |
+          ENV="${{ github.event.inputs.environment }}"
+          if [[ "$ENV" == "prod" ]]; then
+            echo "Production environment selected."
+          elif [[ "$ENV" == "staging" ]]; then
+            echo "Staging environment selected."
+          elif [[ "$ENV" == "dev" ]]; then
+            echo "Development environment selected."
+          else
+            echo "Invalid environment: $ENV"
+          fi
+
+      - name: Check Deployment
+        run: |
+          DEPLOY="${{ github.event.inputs.should_deploy }}"
+          if [[ "$DEPLOY" == "yes" ]]; then
+            echo "Proceeding with deployment."
+          else
+            echo "Deployment cancelled."
+          fi
