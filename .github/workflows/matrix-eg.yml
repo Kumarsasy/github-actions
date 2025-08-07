@@ -1,0 +1,29 @@
+name: Matrix with Needs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16, 18, 20]
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run Nodejs
+        run: |
+          echo "Nodejs ${{ matrix.node-version }}"
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: build after test
+        run: echo "All matrix jobs completed. Build Successfull"
