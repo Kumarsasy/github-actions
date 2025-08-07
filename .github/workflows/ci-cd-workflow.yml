@@ -3,6 +3,8 @@ name: Ci Cd Workflow
 on:
   push:
     branches: [main, developer]
+    branches-ignore: tester
+    tags: "v1*"
   issues:
     types: [opened, edited, closed]
   pull_request:
@@ -23,7 +25,7 @@ jobs:
           elif [ "${{github.event_name}}" == "pull_request" ]; then
              echo "This is a pull request – running PR build pipeline..."
           elif [ "${{ github.event_name }}" == "issues" ]; then
-            echo "An issue event - ${{ github.event.issue.title }} triggered the workflow..."
+            echo "An issue event - ${{ github.event.issue.title }} - ${{ github.event.action }} triggered the workflow..."
           elif [ "${{ github.event_name }}" == "pull_request_review" ]; then
             echo "Triggered by a pull request review submission..."
           else
